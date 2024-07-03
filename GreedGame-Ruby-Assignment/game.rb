@@ -83,7 +83,6 @@ module Game
 
     def play_turn(player)
       player.play(5)
-      sleep 1
       cur_score = score
       print "#{player.name} rolls: " + @dice.to_s+"\n"
       print "Score in this round: #{score} \n"
