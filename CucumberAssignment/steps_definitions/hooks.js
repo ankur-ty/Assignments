@@ -1,0 +1,11 @@
+const { Before, After } = require('@cucumber/cucumber');
+
+Before('@setup', function () {
+  global.Hooks = 1;
+  console.log(`Global variable Hooks set to: ${global.Hooks}`);
+});
+
+After('@teardown', function () {
+  global.Hooks = undefined;
+  console.log(`Global variable Hooks cleared`);
+});
