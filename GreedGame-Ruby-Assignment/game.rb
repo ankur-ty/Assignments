@@ -22,9 +22,9 @@ module Game
     end
 
     #scoring method for every roll
-    def score
+    def score(dice_values=nil)
       curr_score = 0
-      v = @dice.values
+      v = dice_values || @dice.values
       counts = Hash.new(0)
       v.each do |value|
         counts[value] += 1
@@ -88,7 +88,7 @@ module Game
       print "#{player.name} rolls: " + @dice.to_s+"\n"
       print "Score in this round: #{score} \n"
       print "Total score: #{@player_score[player]}\n"
-      if cur_score != 0 && cur_score >=300
+      if cur_score != 0
         loop do
           n = get_nonscoring_num
           choice = take_input_to_play_again(player,n)
