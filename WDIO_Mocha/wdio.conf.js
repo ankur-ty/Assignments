@@ -6,8 +6,9 @@ export const config = {
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
 
-    user: 'BROWSERSTACK_USERNAME',
-    key:  'BROWSERSTACK_ACCESS_KEY',
+    user: process.env.BROWSERSTACK_USERNAME || 'BROWSERSTACK_USERNAME',
+    key: process.env.BROWSERSTACK_ACCESS_KEY || 'BROWSERSTACK_ACCESS_KEY',
+  
 
     services: [
         ['browserstack', {
