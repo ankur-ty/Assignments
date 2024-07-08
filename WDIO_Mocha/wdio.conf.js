@@ -146,7 +146,7 @@ export const config = {
         ['junit', {
         outputDir: './reports',
         outputFileFormat: function(options) { // optional
-                return `results-${options.cid}.${options.capabilities}.xml`}
+                return `results-${options.cid}.xml`}
         }
             ]
         ],
