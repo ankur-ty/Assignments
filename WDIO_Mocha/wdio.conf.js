@@ -144,8 +144,12 @@ export const config = {
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec', 
         ['junit', {
-        outputDir: './'
-    }]],
+        outputDir: './reports',
+        outputFileFormat: function(options) { // optional
+                return `results-${options.cid}.${options.capabilities}.xml`}
+        }
+            ]
+        ],
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
