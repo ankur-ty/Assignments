@@ -7,7 +7,7 @@ export const config = {
     runner: 'local',
 
     user: 'process.env.BROWSERSTACK_USERNAME',
-    key:  'process.env.BROWSERSTACK_KEY',
+    key:  'process.env.BROWSERSTACK_ACCESS_KEY',
 
     services: [
         ['browserstack', {
