@@ -1,6 +1,6 @@
 
   pipeline {
-    agent any
+    agent { docker { image 'node:18.20.2' } }
 
     environment {
         GIT_REPO_URL = 'https://github.com/ankur-ty/Assignments.git'
