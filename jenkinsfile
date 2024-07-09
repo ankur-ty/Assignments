@@ -1,11 +1,10 @@
 
   pipeline {
    
-    agent {
-        docker {
-            image 'node:18.20.2' // Use an official Node.js Docker image
-            args '-u root:root' // Run as root user to avoid permission issues
-        }
+    agent any
+
+    tools {
+        nodejs "NodeJS 18.20.2" // Use the NodeJS installation configured in Jenkins
     }
 
     environment {
