@@ -25,6 +25,7 @@
                         def result = sh(script: '''
                         export BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}
                         export BROWSERSTACK_ACCESS_KEY=${BROWSERSTACK_ACCESS_KEY}
+                        cd WDIO_Mocha
                         sh 'npm install'
                         sh 'npm test'
                         ''', returnStatus: true)
