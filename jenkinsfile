@@ -22,12 +22,13 @@
             steps {
                 browserstack(credentialsId: 'e01cd63e-5ffd-44e0-be90-43f752a6e6b6') {
                     script {
+                        sh 'WDIO_Mocha'
                         echo 'Current directory:'
                         sh 'pwd'
                         def result = sh(script: '''
                         export BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}
                         export BROWSERSTACK_ACCESS_KEY=${BROWSERSTACK_ACCESS_KEY}
-                        cd WDIO_Mocha
+                        
                         sh 'npm install'
                         sh 'npm test'
                         ''', returnStatus: true)
