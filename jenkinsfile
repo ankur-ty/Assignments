@@ -4,7 +4,7 @@
     agent any
 
     tools {
-        nodejs "node" // Use the NodeJS installation configured in Jenkins
+        nodejs "NodeJS" // Use the NodeJS installation configured in Jenkins
     }
 
     environment {
