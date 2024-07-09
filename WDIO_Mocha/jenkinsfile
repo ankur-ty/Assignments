@@ -1,0 +1,46 @@
+
+  pipeline {
+    agent any
+
+    environment {
+        GIT_REPO_URL = 'https://github.com/ankur-ty/Assignments.git'
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git url: "${env.GIT_REPO_URL}"
+            }
+        }
+
+        stage('Run Tests on BrowserStack') {
+            steps {
+                browserstack(credentialsId: 'e01cd63e-5ffd-44e0-be90-43f752a6e6b6') {
+                    script {
+                        def result = sh(script: '''
+                        export BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}
+                        export BROWSERSTACK_ACCESS_KEY=${BROWSERSTACK_ACCESS_KEY}
+                        npm install
+                        npm test
+                        ''', returnStatus: true)
+                        if (result != 0) {
+                            error 'Tests failed!'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Record Test Results') {
+            steps {
+                junit 'reports/*.xml'
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'reports/*.xml', allowEmptyArchive: true
+        }
+    }
+}
