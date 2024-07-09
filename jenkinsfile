@@ -1,7 +1,7 @@
 
   pipeline {
    
-    agent none
+    agent any
 
     environment {
         GIT_REPO_URL = 'https://github.com/ankur-ty/Assignments.git'
