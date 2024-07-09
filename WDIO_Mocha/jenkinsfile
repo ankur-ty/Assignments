@@ -9,7 +9,7 @@
     stages {
         stage('Clone Repository') {
             steps {
-                git url: "${env.GIT_REPO_URL}"
+                git url: "${env.GIT_REPO_URL}", branch:'Wdio_Mocha'
             }
         }
 
