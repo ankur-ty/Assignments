@@ -1,0 +1,50 @@
+
+  pipeline {
+   
+    agent any
+
+    tools {
+        nodejs "NodeJS" // Use the NodeJS installation configured in Jenkins
+    }
+
+    environment {
+        GIT_REPO_URL = 'https://github.com/ankur-ty/Assignments.git'
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git url: "${env.GIT_REPO_URL}", branch:'Wdio_Mocha'
+            }
+        }
+
+        stage('Run Tests on BrowserStack') {
+            steps {
+                browserstack(credentialsId: 'e01cd63e-5ffd-44e0-be90-43f752a6e6b6') {
+                    script {
+                       dir('WDIO_Mocha') {
+                            sh 'npm install'
+                            def testResult = sh(script: 'npm test', returnStatus: true)
+
+                            if (testResult != 0) {
+                                error 'Tests failed!'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Record Test Results') {
+            steps {
+                junit 'WDIO_Mocha/reports/*.xml'
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'WDIO_Mocha/reports/*.xml', allowEmptyArchive: true
+        }
+    }
+}
