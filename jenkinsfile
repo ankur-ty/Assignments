@@ -24,18 +24,17 @@
                     script {
                         echo 'Current directory:'
                         sh 'pwd'
-                        def result = sh(script: '''
-                        export BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}
-                        export BROWSERSTACK_ACCESS_KEY=${BROWSERSTACK_ACCESS_KEY}
-                        sh 'cd /Users/ankurtyagi/.jenkins/workspace/Test-Automation/WDIO_Mocha'
-                        echo 'Current directory:'
-                        sh 'pwd'
-                        
-                        sh 'npm install'
-                        sh 'npm test'
-                        ''', returnStatus: true)
-                        if (result != 0) {
-                            error 'Tests failed!'
+                       dir('WDIO_Mocha') {
+                            echo 'Current directory after cd:'
+                            sh 'pwd'
+
+                            // Run your npm commands within the WDIO_Mocha directory
+                            sh 'npm install'
+                            def testResult = sh(script: 'npm test', returnStatus: true)
+
+                            if (testResult != 0) {
+                                error 'Tests failed!'
+                            }
                         }
                     }
                 }
