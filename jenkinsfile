@@ -27,8 +27,6 @@
                        dir('WDIO_Mocha') {
                             echo 'Current directory after cd:'
                             sh 'pwd'
-
-                            // Run your npm commands within the WDIO_Mocha directory
                             sh 'npm install'
                             def testResult = sh(script: 'npm test', returnStatus: true)
 
@@ -43,14 +41,14 @@
 
         stage('Record Test Results') {
             steps {
-                junit 'reports/*.xml'
+                junit 'WDIO_Mocha/reports/*.xml'
             }
         }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: 'reports/*.xml', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'WDIO_Mocha/reports/*.xml', allowEmptyArchive: true
         }
     }
 }
