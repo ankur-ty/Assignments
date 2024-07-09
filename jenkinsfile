@@ -1,6 +1,6 @@
 
   pipeline {
-    agent { docker { image 'node:18.20.2' } }
+    agent { docker { image 'node:20.15.0-alpine3.20' } }
 
     environment {
         GIT_REPO_URL = 'https://github.com/ankur-ty/Assignments.git'
