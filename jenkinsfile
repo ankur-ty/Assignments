@@ -22,11 +22,7 @@
             steps {
                 browserstack(credentialsId: 'e01cd63e-5ffd-44e0-be90-43f752a6e6b6') {
                     script {
-                        echo 'Current directory:'
-                        sh 'pwd'
                        dir('WDIO_Mocha') {
-                            echo 'Current directory after cd:'
-                            sh 'pwd'
                             sh 'npm install'
                             def testResult = sh(script: 'npm test', returnStatus: true)
 
