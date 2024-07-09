@@ -20,6 +20,7 @@
                         def result = sh(script: '''
                         export BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}
                         export BROWSERSTACK_ACCESS_KEY=${BROWSERSTACK_ACCESS_KEY}
+                          cd /Users/ankurtyagi/.jenkins/workspace/WDIO-Mocha/WDIO_Mocha
                         npm install
                         npm test
                         ''', returnStatus: true)
