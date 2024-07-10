@@ -1,7 +1,7 @@
 const { spec } = require('pactum');
-const { it, describe } = require('@jest/globals');
+const { it, describe, beforeEach } = require('@jest/globals');
 const logger = require('./logger');
-require('./handlers.js');
+const BASE_URL = require('./handlers');  
 
 describe('JSONPlaceholder API Tests', () => {
 
@@ -37,18 +37,17 @@ describe('JSONPlaceholder API Tests', () => {
 
   it('should capture the ID of the first todo and get its details', async () => {
     const firstTodoId = await spec()
-      .get('https://jsonplaceholder.typicode.com/todos')
+      .get(`${BASE_URL}/todos`)
       .expectStatus(200)
       .returns('#firstTodoId');
 
-   const response =  await spec('get todo by id', { id: firstTodoId });
-   logger.info(`Response received: ${JSON.stringify(response.body)}`);
-    
+    const response = await spec('get todo by id', { id: firstTodoId });
+    logger.info(`Response received: ${JSON.stringify(response.body)}`);
   });
 
   it('should create a new todo with dynamic timestamp and authorization', async () => {
-   const response =  await spec()
-      .post('https://jsonplaceholder.typicode.com/todos')
+    const response = await spec()
+      .post(`${BASE_URL}/todos`)
       .withHeaders('Authorization', '$F{GetAuthToken}')
       .withJson({
         title: 'foo',
@@ -63,8 +62,7 @@ describe('JSONPlaceholder API Tests', () => {
         userId: 1
       });
 
-      logger.info(`Response received: ${JSON.stringify(response.body)}`);
-
+    logger.info(`Response received: ${JSON.stringify(response.body)}`);
   });
 
 });
